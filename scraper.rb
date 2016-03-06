@@ -40,7 +40,7 @@ def scrape_person(url, name, group)
   box = noko.css('.article-holder')
   images = box.css('img/@src')
   data = { 
-    id: url.to_s[/ns_article-(.*?)-2014/, 1],
+    id: url.to_s[/ns_article-(.*?)-(\d+)/, 1],
     name: name.tidy,
     party: group.tidy,
     image: images.size.zero? ? '' : images.first.text,
