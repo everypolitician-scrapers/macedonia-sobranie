@@ -35,11 +35,7 @@ def scrape_group(name, url)
 end
 
 def valid_uri(url, path)
-  begin
-    URI.join(url, path)
-  rescue URI::InvalidURIError
-    URI.join(url, URI.escape(path))
-  end
+  URI.join(url, URI.escape(URI.unescape(path)))
 end
 
 def scrape_person(url, name, group)
