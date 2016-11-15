@@ -1,0 +1,37 @@
+---
+request:
+  method: get
+  uri: http://sobranie.mk/current-structure-2014-2018-ns_article-selvije-saliu-2014-en.nspx
+  body:
+    encoding: US-ASCII
+    string: ''
+  headers:
+    Accept-Encoding:
+    - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    Accept:
+    - '*/*'
+    User-Agent:
+    - Ruby
+response:
+  status:
+    code: 200
+    message: OK
+  headers:
+    Cache-Control:
+    - private
+    Content-Type:
+    - text/html; charset=utf-8
+    Set-Cookie:
+    - ASP.NET_SessionId=q041kk2zt3rcmsf3gzk0qvql; path=/; HttpOnly
+    X-Ua-Compatible:
+    - IE=Edge,chrome=1
+    X-Frame-Options:
+    - SAMEORIGIN
+    Date:
+    - Tue, 15 Nov 2016 15:01:19 GMT
+    Content-Length:
+    - '29261'
+  body:
+    encoding: UTF-8
+  http_version: 
+recorded_at: Tue, 15 Nov 2016 15:04:30 GMT
