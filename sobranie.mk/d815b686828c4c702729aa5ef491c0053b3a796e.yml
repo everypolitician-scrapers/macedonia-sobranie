@@ -1,0 +1,37 @@
+---
+request:
+  method: get
+  uri: http://sobranie.mk/democratic-union-for-integration-2014-ns_article-ejup-rustemi-2014-en.nspx
+  body:
+    encoding: US-ASCII
+    string: ''
+  headers:
+    Accept-Encoding:
+    - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    Accept:
+    - '*/*'
+    User-Agent:
+    - Ruby
+response:
+  status:
+    code: 200
+    message: OK
+  headers:
+    Cache-Control:
+    - private
+    Content-Type:
+    - text/html; charset=utf-8
+    Set-Cookie:
+    - ASP.NET_SessionId=unuqnno1duhlodrxu5vs5gad; path=/; HttpOnly
+    X-Ua-Compatible:
+    - IE=Edge,chrome=1
+    X-Frame-Options:
+    - SAMEORIGIN
+    Date:
+    - Tue, 15 Nov 2016 14:59:55 GMT
+    Content-Length:
+    - '29800'
+  body:
+    encoding: UTF-8
+  http_version: 
+recorded_at: Tue, 15 Nov 2016 15:03:06 GMT
