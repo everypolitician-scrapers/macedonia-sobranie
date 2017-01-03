@@ -35,12 +35,16 @@ def scrape_group(name, url)
   end
 end
 
+def valid_uri(url, path)
+  URI.join(url, URI.escape(URI.unescape(path)))
+end
+
 def scrape_person(url, name, group)
   noko = noko_for(url)
 
   box = noko.css('.article-holder')
   images = box.css('img/@src')
-  data = { 
+  data = {
     id: url.to_s[/ns_article-(.*?)-(\d+)/, 1],
     name: name.tidy,
     party: group.tidy,
@@ -48,7 +52,7 @@ def scrape_person(url, name, group)
     term: 2014,
     source: url.to_s,
   }
-  data[:image] = URI.join(url, URI.escape(data[:image])).to_s unless data[:image].to_s.empty?
+  data[:image] = valid_uri(url, data[:image]).to_s unless data[:image].to_s.empty?
   ScraperWiki.save_sqlite([:id, :term], data)
 end
 
