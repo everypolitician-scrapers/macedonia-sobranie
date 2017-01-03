@@ -1,5 +1,6 @@
 #!/bin/env ruby
 # encoding: utf-8
+# frozen_string_literal: true
 
 require 'scraperwiki'
 require 'nokogiri'
@@ -11,7 +12,7 @@ require 'scraped_page_archive/open-uri'
 
 class String
   def tidy
-    self.gsub(/[[:space:]]+/, ' ').strip
+    gsub(/[[:space:]]+/, ' ').strip
   end
 end
 
@@ -40,16 +41,16 @@ def scrape_person(url, name, group)
 
   box = noko.css('.article-holder')
   images = box.css('img/@src')
-  data = { 
-    id: url.to_s[/ns_article-(.*?)-(\d+)/, 1],
-    name: name.tidy,
-    party: group.tidy,
-    image: images.size.zero? ? '' : images.first.text,
-    term: 2014,
+  data = {
+    id:     url.to_s[/ns_article-(.*?)-(\d+)/, 1],
+    name:   name.tidy,
+    party:  group.tidy,
+    image:  images.size.zero? ? '' : images.first.text,
+    term:   2014,
     source: url.to_s,
   }
   data[:image] = URI.join(url, URI.escape(data[:image])).to_s unless data[:image].to_s.empty?
-  ScraperWiki.save_sqlite([:id, :term], data)
+  ScraperWiki.save_sqlite(%i(id term), data)
 end
 
 scrape_list('http://sobranie.mk/current-structure-2014-2018.nspx')
