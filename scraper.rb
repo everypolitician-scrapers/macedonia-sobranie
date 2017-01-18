@@ -47,4 +47,5 @@ def scrape_person(url, name, group)
   ScraperWiki.save_sqlite(%i(id term), data)
 end
 
+ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
 scrape_list('http://sobranie.mk/current-structure-2014-2018.nspx')
