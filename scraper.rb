@@ -10,15 +10,38 @@ require 'scraperwiki'
 # OpenURI::Cache.cache_path = '.cache'
 require 'scraped_page_archive/open-uri'
 
+class GroupsPage < Scraped::HTML
+  decorator Scraped::Response::Decorator::AbsoluteUrls
+
+  field :groups do
+    noko.css('div.toc li a').map do |a|
+      fragment a => GroupLine
+    end
+  end
+
+  class GroupLine < Scraped::HTML
+    field :name do
+      noko.text
+    end
+
+    field :url do
+      noko.attr('href')
+    end
+  end
+end
+
+def scrape(h)
+  url, klass = h.to_a.first
+  klass.new(response: Scraped::Request.new(url: url).response)
+end
+
 def noko_for(url)
   Nokogiri::HTML(open(url).read)
 end
 
 def scrape_list(url)
-  noko = noko_for(url)
-  noko.css('div.toc li a').each do |a|
-    link = URI.join url, a.attr('href')
-    scrape_group(a.text, link)
+  scrape(url => GroupsPage).groups.each do |group|
+    scrape_group(group.name, group.url)
   end
 end
 
