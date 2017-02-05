@@ -10,22 +10,34 @@ require 'scraperwiki'
 # OpenURI::Cache.cache_path = '.cache'
 require 'scraped_page_archive/open-uri'
 
-class GroupsPage < Scraped::HTML
+class SobraniePage < Scraped::HTML
+  decorator Scraped::Response::Decorator::AbsoluteUrls
+end
+
+class GroupsPage < SobraniePage
   decorator Scraped::Response::Decorator::AbsoluteUrls
 
   field :groups do
     noko.css('div.toc li a').map do |a|
-      fragment a => GroupLine
+      fragment a => LinkLine
     end
   end
+end
 
-  class GroupLine < Scraped::HTML
-    field :name do
-      noko.text
-    end
+class LinkLine < Scraped::HTML
+  field :name do
+    noko.text
+  end
 
-    field :url do
-      noko.attr('href')
+  field :url do
+    noko.attr('href')
+  end
+end
+
+class GroupPage < SobraniePage
+  field :members do
+    noko.css('h2 a').map do |a|
+      fragment a => LinkLine
     end
   end
 end
@@ -46,10 +58,8 @@ def scrape_list(url)
 end
 
 def scrape_group(name, url)
-  noko = noko_for(url)
-  noko.css('h2 a').each do |a|
-    link = URI.join url, a.attr('href')
-    scrape_person(link, a.text, name)
+  scrape(url => GroupPage).members.each do |mem|
+    scrape_person(mem.url, mem.name, name)
   end
 end
 
