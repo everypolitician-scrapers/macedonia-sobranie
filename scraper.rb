@@ -25,7 +25,6 @@ ceased_members_url = 'http://sobranie.mk/mps-whose-mandate-has-not-been-complete
 term = 2014
 
 current_members = scrape(start => GroupsPage).groups.flat_map do |group|
-  puts group.source
   scrape(group.source => GroupPage).members.map do |mem|
     mem.to_h.merge(scrape(mem.source => MemberPage).to_h.merge(party: group.name, term: term))
   end
