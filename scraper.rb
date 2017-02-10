@@ -34,8 +34,6 @@ ceased_members = scrape(ceased_members_url => CeasedMembersPage).members.map do 
   mem.to_h.merge(scrape(mem.source => MemberPage).to_h.merge(party: mem.party, term: term))
 end
 
-data = (current_members << ceased_members).flatten
-
 # puts data.map { |r| r.reject { |k, v| v.to_s.empty? }.sort_by { |k,v| k }.to_h }
-
+data = (current_members << ceased_members).flatten
 ScraperWiki.save_sqlite(%i(id term), data)
