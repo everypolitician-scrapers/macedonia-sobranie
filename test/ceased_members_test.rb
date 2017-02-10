@@ -15,7 +15,8 @@ describe 'ceased member' do
       subject.first.to_h.must_equal(
         source: 'http://www.sobranie.mk/current-structure-2014-2018-ns_article-romeo-trenov-2014-en.nspx',
         name:   'Romeo Trenov',
-        party:  'VMRO-DPMNE'
+        party:  'VMRO-DPMNE',
+        end_date: '2015-10-29'
       )
     end
   end
@@ -26,7 +27,8 @@ describe 'ceased member' do
       subject.last.to_h.must_equal(
         source: 'http://sobranie.mk/vmro-dpmne-2014-ns_article-emil-dimitriev-2014-en.nspx',
         name:   'Emil Dimitriev',
-        party:  'VMRO-DPMNE'
+        party:  'VMRO-DPMNE',
+        end_date: '2016-01-18'
       )
     end
   end

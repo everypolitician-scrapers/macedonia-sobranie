@@ -15,4 +15,8 @@ class CeasedMemberRow < Scraped::HTML
     # we always get the party name for each row
     noko.xpath('text()')[0..1].text.split('.').last.tidy
   end
+
+  field :end_date do
+    Date.parse(noko.text.match(/(?:\d\d?\.\d\d?.\d\d\d\d)/)[0]).to_s
+  end
 end
