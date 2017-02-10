@@ -21,21 +21,17 @@ end
 ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
 
 start = 'http://sobranie.mk/current-structure-2014-2018.nspx'
-groups = scrape(start => GroupsPage).groups
-# The structure of the last page differs from the others.
-# We will scrape it separately.
-party_groups = groups[0...-1]
-ceased_members_group = groups.last
+ceased_members_url = 'http://sobranie.mk/mps-whose-mandate-has-not-been-completed-2014-2018.nspx'
 term = 2014
 
-current_members = party_groups.flat_map do |group|
+current_members = scrape(start => GroupsPage).groups.flat_map do |group|
   puts group.source
   scrape(group.source => GroupPage).members.map do |mem|
     mem.to_h.merge(scrape(mem.source => MemberPage).to_h.merge(party: group.name, term: term))
   end
 end
 
-ceased_members = scrape(ceased_members_group.source => CeasedMembersPage).members.map do |mem|
+ceased_members = scrape(ceased_members_url => CeasedMembersPage).members.map do |mem|
   mem.to_h.merge(scrape(mem.source => MemberPage).to_h.merge(party: mem.party, term: term))
 end
 
