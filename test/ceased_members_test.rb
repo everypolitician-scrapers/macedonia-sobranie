@@ -32,4 +32,16 @@ describe 'ceased member' do
       )
     end
   end
+
+  # Third test for a row where the party ID is in a different text node
+  describe 'Silvana Boneva' do
+    it 'should have the expected data' do
+      subject[1].to_h.must_equal(
+        source:   'http://www.sobranie.mk/current-structure-2014-2018-ns_article-silvana-boneva-2014-eng.nspx',
+        name:     'Silvana Boneva',
+        party:    'VMRO-DPMNE',
+        end_date: '2015-12-16'
+      )
+    end
+  end
 end
