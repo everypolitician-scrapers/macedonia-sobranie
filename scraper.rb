@@ -21,16 +21,17 @@ end
 ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
 
 start = 'http://sobranie.mk/current-structure-2014-2018.nspx'
-ceased_members_url = 'http://sobranie.mk/mps-whose-mandate-has-not-been-completed-2014-2018.nspx'
 term = 2014
 
-current_members = scrape(start => GroupsPage).groups.flat_map do |group|
+groups_page = scrape(start => GroupsPage)
+
+current_members = groups_page.groups.flat_map do |group|
   scrape(group.source => GroupPage).members.map do |mem|
     mem.to_h.merge(scrape(mem.source => MemberPage).to_h.merge(party: group.name, term: term))
   end
 end
 
-ceased_members = scrape(ceased_members_url => CeasedMembersPage).members.map do |mem|
+ceased_members = scrape(groups_page.ceased_members_url => CeasedMembersPage).members.map do |mem|
   mem.to_h.merge(scrape(mem.source => MemberPage).to_h.merge(party: mem.party, term: term))
 end
 
