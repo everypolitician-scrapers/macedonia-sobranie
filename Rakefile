@@ -8,4 +8,8 @@ Rake::TestTask.new do |t|
   t.test_files = FileList['test/**/*_test.rb']
 end
 
-task default: %w(test rubocop)
+require 'scraper_test'
+ScraperTest::RakeTask.new.install_tasks
+
+task test: 'test:data'
+task default: %w(rubocop test)
