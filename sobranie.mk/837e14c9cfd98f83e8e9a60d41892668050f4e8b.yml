@@ -1,0 +1,33 @@
+---
+request:
+  method: get
+  uri: http://sobranie.mk/RbgnZ/current-structure-2014-2018.nspx
+  body:
+    encoding: US-ASCII
+    string: ''
+  headers:
+    Accept-Encoding:
+    - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    Accept:
+    - "*/*"
+    User-Agent:
+    - Ruby
+response:
+  status:
+    code: 302
+    message: Found
+  headers:
+    Connection:
+    - close
+    Pragma:
+    - no-cache
+    Cache-Control:
+    - no-cache
+    Location:
+    - "/current-structure-2014-2018.nspx"
+    Content-Length:
+    - '0'
+  body:
+    encoding: UTF-8
+  http_version: 
+recorded_at: Tue, 31 Jul 2018 07:07:09 GMT
