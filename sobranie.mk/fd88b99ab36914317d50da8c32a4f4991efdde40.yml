@@ -22,16 +22,16 @@ response:
     Content-Type:
     - text/html; charset=utf-8
     Set-Cookie:
-    - ASP.NET_SessionId=me5hd3w4e1ccsm3mrhriw44u; path=/; HttpOnly
+    - ASP.NET_SessionId=tvqlrdcvujphixlaa3vpuu3o; path=/; HttpOnly
     X-Ua-Compatible:
     - IE=Edge,chrome=1
     X-Frame-Options:
     - SAMEORIGIN
     Date:
-    - Thu, 02 Aug 2018 15:17:50 GMT
+    - Fri, 03 Aug 2018 15:19:23 GMT
     Content-Length:
-    - '29617'
+    - '29641'
   body:
     encoding: UTF-8
   http_version: 
-recorded_at: Thu, 02 Aug 2018 15:23:03 GMT
+recorded_at: Fri, 03 Aug 2018 15:24:39 GMT
