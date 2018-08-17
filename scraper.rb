@@ -36,5 +36,5 @@ ceased_members = scrape(groups_page.ceased_members_url => CeasedMembersPage).mem
 end
 
 data = current_members + ceased_members
-# puts data.map { |r| r.reject { |k, v| v.to_s.empty? }.sort_by { |k,v| k }.to_h }
+data.each { |mem| puts mem.reject { |_, v| v.to_s.empty? }.sort_by { |k, _| k }.to_h } if ENV['MORPH_DEBUG']
 ScraperWiki.save_sqlite(%i(id term), data)
