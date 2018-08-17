@@ -20,7 +20,7 @@ end
 
 ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
 
-start = 'http://sobranie.mk/current-structure-2014-2018.nspx'
+start = 'https://sobranie.mk/current-structure-2014-2018.nspx'
 term = 2014
 
 groups_page = scrape(start => GroupsPage)
