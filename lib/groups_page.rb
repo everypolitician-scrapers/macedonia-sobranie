@@ -2,7 +2,7 @@
 require_relative 'sobranie_page'
 
 class GroupsPage < SobraniePage
-  decorator Scraped::Response::Decorator::AbsoluteUrls
+  decorator Scraped::Response::Decorator::CleanUrls
 
   CEASED_MEMBERS_URL = 'mps-whose-mandate-has-not-been-completed'
 

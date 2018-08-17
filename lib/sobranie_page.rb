@@ -2,5 +2,5 @@
 require 'scraped'
 
 class SobraniePage < Scraped::HTML
-  decorator Scraped::Response::Decorator::AbsoluteUrls
+  decorator Scraped::Response::Decorator::CleanUrls
 end
