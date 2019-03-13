@@ -1,5 +1,4 @@
 #!/bin/env ruby
-# encoding: utf-8
 # frozen_string_literal: true
 
 require 'pry'
@@ -11,30 +10,30 @@ require_rel 'lib'
 
 require 'open-uri/cached'
 OpenURI::Cache.cache_path = '.cache'
-# require 'scraped_page_archive/open-uri'
 
-def scrape(h)
-  url, klass = h.to_a.first
+def scrape(what)
+  url, klass = what.to_a.first
   klass.new(response: Scraped::Request.new(url: url).response)
 end
 
-ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
-
-start = 'https://sobranie.mk/current-structure-2014-2018.nspx'
-term = 2014
+start = 'https://sobranie.mk/current-structure.nspx'
 
 groups_page = scrape(start => GroupsPage)
 
 current_members = groups_page.groups.flat_map do |group|
   scrape(group.source => GroupPage).members.map do |mem|
-    mem.to_h.merge(scrape(mem.source => MemberPage).to_h.merge(party: group.name, term: term))
+    mem.to_h.merge(scrape(mem.source => MemberPage).to_h.merge(party: group.name, term: '2016'))
   end
 end
 
-ceased_members = scrape(groups_page.ceased_members_url => CeasedMembersPage).members.map do |mem|
-  mem.to_h.merge(scrape(mem.source => MemberPage).to_h.merge(party: mem.party, term: term))
-end
+# TODO: scrape ceased members
+# ceased_members = scrape(groups_page.ceased_members_url => CeasedMembersPage).members.map do |mem|
+  # mem.to_h.merge(scrape(mem.source => MemberPage).to_h.merge(party: mem.party, term: '2016')) rescue binding.pry
+# end
 
-data = current_members + ceased_members
+# data = current_members + ceased_members
+data = current_members
 data.each { |mem| puts mem.reject { |_, v| v.to_s.empty? }.sort_by { |k, _| k }.to_h } if ENV['MORPH_DEBUG']
-ScraperWiki.save_sqlite(%i(id term), data)
+
+ScraperWiki.sqliteexecute('DROP TABLE data') rescue nil
+ScraperWiki.save_sqlite(%i[id term], data)
